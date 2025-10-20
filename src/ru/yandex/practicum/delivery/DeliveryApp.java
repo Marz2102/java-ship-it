@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class DeliveryApp {
     private static final Scanner scanner = new Scanner(System.in);
     private static final List<Parcel> allParcels = new ArrayList<>();
+    private static final List<Trackable> trackableParcels = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -31,7 +32,7 @@ public class DeliveryApp {
                     calculateCosts();
                     break;
                 case 4:
-                    checkReportStatus();
+                    updateReportStatus();
                     break;
                 case 0:
                     running = false;
@@ -90,18 +91,12 @@ public class DeliveryApp {
         System.out.println(totalPrice);
     }
 
-    private static void checkReportStatus() {
-        for (Parcel parcel : allParcels) {
-            if (parcel instanceof Trackable trackable) {
-                updateReportStatus(trackable);
-            }
+    private static void updateReportStatus() {
+        for (Trackable parcel : trackableParcels) {
+            System.out.println("Введите город для обновления статуса:");
+            String newLocation = scanner.nextLine();
+            parcel.reportStatus(newLocation);
         }
-    }
-
-    private static void updateReportStatus(Trackable trackable) {
-        System.out.println("Введите город для обновления статуса:");
-        String newLocation = scanner.nextLine();
-        trackable.reportStatus(newLocation);
     }
 
     private static void createStandardParcel() {
@@ -137,7 +132,9 @@ public class DeliveryApp {
         int deliveryDate = scanner.nextInt();
         scanner.nextLine();
 
-        allParcels.add(new FragileParcel(description, weight, address, deliveryDate));
+        FragileParcel fragileParcel = new FragileParcel(description, weight, address, deliveryDate);
+        allParcels.add(fragileParcel);
+        trackableParcels.add(fragileParcel);
     }
 
     private static void createPerishableParcel() {

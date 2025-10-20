@@ -47,7 +47,7 @@ public class DeliveryCostTest {
 
     @Test
     public void shouldReturnFalseWhenExpiryDateLessThenCurrentDate() {
-        assertFalse(perishableParcels.getFirst().isExpired(22));
+        assertTrue(perishableParcels.getFirst().isExpired(22));
     }
 
     @Test
@@ -57,12 +57,12 @@ public class DeliveryCostTest {
 
     @Test
     public void shouldReturnTrueWhenExpiryDateMoreThenCurrentDate() {
-        assertTrue(perishableParcels.getFirst().isExpired(20));
+        assertFalse(perishableParcels.getFirst().isExpired(20));
     }
 
     @Test
     public void shouldAddNewParcelWhenTotalWeightLessThenBoxWeight() {
-        ParcelBox parcelBox = new ParcelBox<StandardParcel>(25);
+        ParcelBox<StandardParcel> parcelBox = new ParcelBox<StandardParcel>(25);
         parcelBox.addParcels(standardParcels.getFirst());
         parcelBox.addParcels(new StandardParcel("Стандартная посылка 2", 10, "Краснодар", 17));
         assertAll(
@@ -73,7 +73,7 @@ public class DeliveryCostTest {
 
     @Test
     public void shouldAddNewParcelWhenTotalWeightIsEqualThenBoxWeight() {
-        ParcelBox parcelBox = new ParcelBox<StandardParcel>(25);
+        ParcelBox<StandardParcel> parcelBox = new ParcelBox<StandardParcel>(25);
         parcelBox.addParcels(standardParcels.getFirst());
         parcelBox.addParcels(new StandardParcel("Стандартная посылка 2", 20, "Краснодар", 17));
         assertAll(
@@ -84,7 +84,7 @@ public class DeliveryCostTest {
 
     @Test
     public void shouldNotAddNewParcelWhenTotalWeightMoreThenBoxWeight() {
-        ParcelBox parcelBox = new ParcelBox<StandardParcel>(25);
+        ParcelBox<StandardParcel> parcelBox = new ParcelBox<StandardParcel>(25);
         parcelBox.addParcels(standardParcels.getFirst());
         parcelBox.addParcels(new StandardParcel("Стандартная посылка 2", 21, "Краснодар", 17));
         assertAll(

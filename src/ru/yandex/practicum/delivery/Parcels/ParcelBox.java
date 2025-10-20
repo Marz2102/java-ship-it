@@ -1,6 +1,8 @@
 package ru.yandex.practicum.delivery.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ParcelBox<T extends Parcel> {
     private final ArrayList<T> parcels = new ArrayList<>();
@@ -20,8 +22,8 @@ public class ParcelBox<T extends Parcel> {
         }
     }
 
-    public ArrayList<T> getAllParcels() {
-        return parcels;
+    public List<T> getAllParcels() {
+        return Collections.unmodifiableList(parcels);
     }
 
     public int getBoxSize() {
